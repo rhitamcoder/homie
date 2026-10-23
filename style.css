@@ -1,0 +1,233 @@
+/* ---------- Theme variables (change these to match your taste) ---------- */
+:root {
+    --bg-1: #0f0c29;    /* gradient color 1 */
+    --bg-2: #302b63;
+    --text: #f2f4ff;
+    --muted: rgba(242, 244, 255, 0.6);
+    --glass: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.18);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 10vh;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    color: var(--text);
+    background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+    background-attachment: fixed;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- Wallpaper ---------- */
+.wallpaper {
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: 0;
+}
+.wallpaper.active { opacity: 1; }
+
+/* Dark overlay keeps text readable on any wallpaper */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.55) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 36px 48px;
+}
+
+.welcome-small {
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.welcome-name {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 24px rgba(140, 120, 255, 0.55);
+}
+
+.clock {
+    text-align: right;
+}
+
+.clock-time {
+    display: block;
+    font-size: 2.4rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums; /* stops digits from jiggling */
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 20px rgba(140, 120, 255, 0.45);
+}
+
+.clock-date {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.95rem;
+    color: var(--muted);
+}
+
+/* ---------- Shortcut shelf ---------- */
+.shelf {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    padding: 0 40px;
+    flex-wrap: wrap;
+}
+
+.tile {
+    --glow: 255, 255, 255;  /* each tile overrides this with its brand color */
+    position: relative;
+    width: 210px;
+    height: 290px;
+    border-radius: 22px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-decoration: none;
+    color: #fff;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.28s ease,
+    filter 0.28s ease,
+    border-color 0.28s ease;
+}
+
+/* Glossy light streak across the tile */
+.tile::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.22) 0%, transparent 45%);
+    pointer-events: none;
+}
+
+/* Bottom dark fade so the text is readable */
+.tile::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65) transparent 55%);
+    pointer-events: none;
+}
+
+.tile > * { position: relative; z-index: 1; }
+
+.tile-logo {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 5.5rem;
+    font-weight: 800;
+    line-height: 1;
+    opacity: 0.95;
+    text-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+.tile-name {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.tile-tag {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 2px;
+}
+
+/* ---------- Hover / focus: glow + grow ---------- */
+.tile:hover,
+.tile:focus-visible {
+    transform: scale(1.14) translateY(-6px);
+    border-color: rgba(var(--glow), 0.9);
+    box-shadow: 
+        0 0 0 2px rgba(var(--glow), 0.8),
+        0 0 34px rgba(var(--glow), 0.75),
+        0 0 90px rgba(var(--glow), 0.45),
+        0 24px 50px rgba(0, 0, 0, 0.6);
+    z-index: 5;
+    outline: none;
+}
+
+/* Dim the other tiles while one is hovered (like a real console menu) */
+.shelf:has(.tile:hover) .tile:not(:hover) {
+    filter: brightness(0.55) saturate(0.7);
+}
+
+/* ---------- Brand colors for each thumbnail ---------- */
+.youtube { --glow: 255, 40, 40; background: linear-gradient(160deg, #ff3b3b, #8b0000); }
+.netflix { --glow: 229, 9, 20; background: linear-gradient(160deg, #2b0000, #e50914); }
+.jiohotstar { --glow: 90, 120, 255; background: linear-gradient(160deg, #1b2a6b, #5a3df0); }
+.hoichoi { --glow: 255, 70, 90; background: linear-gradient(160deg, #3a0a18, #ff2d55); }
+.twitch { --glow: 160, 100, 255; background: linear-gradient(160deg, #6a35d9, #2a1160); }
+
+/* ---------- Controls ---------- */
+.controls {
+  position: fixed;
+  right: 32px;
+  bottom: 28px;
+  z-index: 3;
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 10px 18px;
+    border-radius: 999px;
+    backdrop-filter: blur(10px);
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(140, 120, 255, 0.5);
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 760px) {
+    body { overflow-y: auto; }
+    .topbar { padding: 24px; }
+    .welcome-name, .clock-time { font-size: 1.7rem; }
+    .tile { width: 160px; height: 220px; }
+    .tile-logo { font-size: 4rem; }
+}

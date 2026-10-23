@@ -1,0 +1,9 @@
+{
+    "manifest_version": 3,
+    "name": "Console Homepage",
+    "version": "1.0",
+    "description": "A gaming-console style new tab page.",
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    }
+}

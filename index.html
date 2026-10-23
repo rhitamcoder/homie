@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homie</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Wallpaper layer (shown only when you pick an image) -->
+    <div class="wallpaper" id="wallpaper"></div>
+    <div class="overlay"></div>
+
+    <!-- Top bar -->
+    <header class="topbar">
+        <div class="welcome">
+            <p class="welcome-small" id="greeting">Welcome back</p>
+            <h1 class="welcome-name">Your Name</h1>
+        </div>
+
+        <div class="clock">
+            <span class="clock-time" id="clock-time">00:00:00</span>
+            <span class="clock-date" id="clock-date">Loading...</span>
+        </div>
+    </header>
+
+    <!-- Console-style shortcut row -->
+    <main class="shelf">
+        <a class="tile youtube" href="https://www.youtube.com" aria-label="YouTube">
+            <span class="tile-logo">▶</span>
+            <span class="tile-name">Youtube</span>
+            <span class="tile-tag">Videos</span>
+        </a>
+
+        <a class="tile netflix" href="https://www.netflix.com" aria-label="Netflix">
+            <span class="tile-logo">N</span>
+            <span class="tile-name">Netflix</span>
+            <span class="tile-tag">Movies &amp; Series</span>
+        </a>
+
+        <a class="tile jiohotstar" href="https://www.jiohotstar.com" aria-label="JioHotstar">
+            <span class="tile-logo">★</span>
+            <span class="tile-name">JioHotstar</span>
+            <span class="tile-tag">Movies &amp; Sports</span>
+        </a>
+
+        <a class="tile hoichoi" href="https://www.hoichoi.tv" aria-label="Hoichoi">
+            <span class="tile-logo">h</span>
+            <span class="tile-name">Hoichoi</span>
+            <span class="tile-tag">Bengali Originals</span>
+        </a>
+
+        <a class="tile twitch" href="https://www.twitch.tv" aria-label="Twitch">
+            <span class="tile-logo">◆</span>
+            <span class="tile-name">Twitch</span>
+            <span class="tile-tag">Live Streams</span>
+        </a>
+    </main>
+
+    <!-- Wallpaper controls -->
+    <footer class="controls">
+        <label class="btn" for="wallpaper-input">🖼 Change Wallpaper</label>
+        <input type="file" id="wallpaper-input" accept="image/*" hidden />
+        <button class="btn" id="wallpaper-reset" type="button">↺ Reset</button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
